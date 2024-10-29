@@ -186,6 +186,8 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
   png_set_packing(png_handler.png_ptr);
   png_set_scale_16(png_handler.png_ptr);
   png_set_tRNS_to_alpha(png_handler.png_ptr);
+  png_set_strip_alpha(png_handler.png_ptr); 
+  
 
   // Seed the random number generator, to generate a random unsigned int
   srand((unsigned int)time(NULL));

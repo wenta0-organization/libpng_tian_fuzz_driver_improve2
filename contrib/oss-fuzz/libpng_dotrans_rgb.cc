@@ -185,6 +185,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
   png_set_packing(png_handler.png_ptr);
   png_set_scale_16(png_handler.png_ptr);
   png_set_tRNS_to_alpha(png_handler.png_ptr);
+  png_set_swap(png_handler.png_ptr); 
 
 
   // Add new transformation
@@ -195,6 +196,8 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
   double green = (double)rand() / RAND_MAX;
   png_set_rgb_to_gray(png_handler.png_ptr, 1, red, green); 
 
+  // Add new transformation
+  png_set_add_alpha(png_handler.png_ptr, 0xff, PNG_FILLER_AFTER);
 
   png_read_update_info(png_handler.png_ptr, png_handler.info_ptr);
   
