@@ -188,10 +188,11 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
   png_set_strip_16(png_handler.png_ptr);
 
   // Add new transformation
-  png_color_8p sig_bit_p;
-  png_get_sBIT(png_handler.png_ptr, png_handler.info_ptr, &sig_bit_p);
-  png_set_shift(png_handler.png_ptr, sig_bit_p);
-
+  if (png_get_valid(png_handler.png_ptr, png_handler.info_ptr, PNG_INFO_sBIT) != 0){
+    png_color_8p sig_bit_p;
+    png_get_sBIT(png_handler.png_ptr, png_handler.info_ptr, &sig_bit_p);
+    png_set_shift(png_handler.png_ptr, sig_bit_p);
+  }
   png_set_alpha_mode(png_handler.png_ptr, PNG_ALPHA_BROKEN, PNG_DEFAULT_sRGB);
 
   png_read_update_info(png_handler.png_ptr, png_handler.info_ptr);
